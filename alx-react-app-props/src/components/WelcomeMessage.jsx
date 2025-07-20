@@ -3,12 +3,10 @@ import { useContext } from "react";
 import UserContext from "../context/UserContext";
 
 function WelcomeMessage() {
-  const user = useContext(UserContext);
+  const { name } = useContext(UserContext);
 
   return (
-    <div style={{ marginBottom: "20px" }}>
-      <h1>Welcome, {user.name}!</h1>
-    </div>
+    <h1 style={{ marginBottom: "1rem" }}>Welcome back, {name}!</h1>
   );
 }
 
