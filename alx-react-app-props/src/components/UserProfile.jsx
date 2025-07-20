@@ -1,8 +1,12 @@
-// src/components/ProfilePage.jsx
-import UserInfo from "./UserInfo";
+// src/components/import UserDetails from './UserDetails';
 
-function ProfilePage() {
-  return <UserInfo />;
+function UserProfile() {
+  return (
+    <div>
+      <h2>User Profile</h2>
+      <UserDetails />
+    </div>
+  );
 }
 
-export default ProfilePage;
+export default UserProfile;
