@@ -1,7 +1,9 @@
+// src/components/Footer.jsx
+
 function Footer() {
   return (
-    <footer style={{ backgroundColor: '#222', color: '#fff', textAlign: 'center', padding: '10px' }}>
-      <p>© 2025 All rights reserved.</p>
+    <footer style={{ backgroundColor: 'navy', color: 'white', textAlign: 'center', padding: '15px', marginTop: '20px' }}>
+      <p>&copy; 2025 My Favorite Cities. All rights reserved.</p>
     </footer>
   );
 }
