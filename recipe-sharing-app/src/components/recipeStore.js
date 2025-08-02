@@ -3,21 +3,40 @@ import { create } from 'zustand';
 
 export const useRecipeStore = create((set) => ({
   recipes: [],
-  favourites: [],
-  addRecipe: (recipe) =>
-    set((state) => ({ recipes: [...state.recipes, recipe] })),
-  updateRecipe: (updated) =>
-    set((state) => ({
-      recipes: state.recipes.map((r) =>
-        r.id === updated.id ? updated : r
-      ),
-    })),
+  favorites: [],
+  recommendations: [],
+  searchTerm: '',
+  filteredRecipes: [],
+
+  addRecipe: (newRecipe) =>
+    set((state) => ({ recipes: [...state.recipes, newRecipe] })),
+
   deleteRecipe: (id) =>
     set((state) => ({
-      recipes: state.recipes.filter((r) => r.id !== id),
+      recipes: state.recipes.filter((recipe) => recipe.id !== id),
     })),
-  addToFavourites: (recipe) =>
+
+  updateRecipe: (updated) =>
     set((state) => ({
-      favourites: [...state.favourites, recipe],
+      recipes: state.recipes.map((r) => (r.id === updated.id ? updated : r)),
+    })),
+
+  setSearchTerm: (term) => set({ searchTerm: term }),
+
+  filterRecipes: () =>
+    set((state) => ({
+      filteredRecipes: state.recipes.filter((recipe) =>
+        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+      ),
+    })),
+
+  addFavorite: (recipe) =>
+    set((state) => ({
+      favorites: [...state.favorites, recipe],
+    })),
+
+  addRecommendation: (recipe) =>
+    set((state) => ({
+      recommendations: [...state.recommendations, recipe],
     })),
 }));

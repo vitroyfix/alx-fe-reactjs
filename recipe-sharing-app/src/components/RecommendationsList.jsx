@@ -1,13 +1,13 @@
 // src/components/RecommendationList.jsx
-import React from 'react';
+import { useRecipeStore } from './recipeStore';
 
-const RecommendationList = () => {
+export default function RecommendationList() {
+  const recommendations = useRecipeStore((state) => state.recommendations);
+
   return (
     <div>
-      <h2>Recommended Recipes</h2>
-      <p>Coming soon...</p>
+      <h2>Recommended</h2>
+      <ul>{recommendations.map((r) => <li key={r.id}>{r.title}</li>)}</ul>
     </div>
   );
-};
-
-export default RecommendationList;
+}

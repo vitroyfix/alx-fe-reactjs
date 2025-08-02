@@ -1,29 +1,20 @@
 // src/components/EditRecipeForm.jsx
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { useRecipeStore } from './recipeStore';
 
-const EditRecipeForm = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const recipes = useRecipeStore((state) => state.recipes);
+export default function EditRecipeForm({ recipe }) {
+  const [title, setTitle] = useState(recipe.title);
   const updateRecipe = useRecipeStore((state) => state.updateRecipe);
-  const recipe = recipes.find((r) => r.id === Number(id));
-
-  const [title, setTitle] = useState(recipe?.title || '');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateRecipe({ id: Number(id), title });
-    navigate('/');
+    updateRecipe({ ...recipe, title });
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} required />
+      <input value={title} onChange={(e) => setTitle(e.target.value)} />
       <button type="submit">Update</button>
     </form>
   );
-};
-
-export default EditRecipeForm;
+}
