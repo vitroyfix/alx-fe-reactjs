@@ -3,25 +3,21 @@ import { create } from 'zustand';
 
 export const useRecipeStore = create((set) => ({
   recipes: [],
-  addRecipe: (newRecipe) =>
-    set((state) => ({ recipes: [...state.recipes, newRecipe] })),
-  deleteRecipe: (id) =>
-    set((state) => ({
-      recipes: state.recipes.filter((recipe) => recipe.id !== id),
-    })),
+  favourites: [],
+  addRecipe: (recipe) =>
+    set((state) => ({ recipes: [...state.recipes, recipe] })),
   updateRecipe: (updated) =>
     set((state) => ({
       recipes: state.recipes.map((r) =>
         r.id === updated.id ? updated : r
       ),
     })),
-  searchTerm: '',
-  setSearchTerm: (term) => set({ searchTerm: term }),
-  filteredRecipes: [],
-  filterRecipes: () =>
+  deleteRecipe: (id) =>
     set((state) => ({
-      filteredRecipes: state.recipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-      ),
+      recipes: state.recipes.filter((r) => r.id !== id),
+    })),
+  addToFavourites: (recipe) =>
+    set((state) => ({
+      favourites: [...state.favourites, recipe],
     })),
 }));
