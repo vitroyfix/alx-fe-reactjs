@@ -1,21 +1,13 @@
-import useRecipeStore from '../store/recipeStore';
+import { Routes, Route } from 'react-router-dom'
+import AddRecipeForm from './components/AddRecipeForm'
+import RecipeList from './components/RecipeList'
+import RecipeDetails from './components/RecipeDetails'
 
-const RecommendationsList = () => {
-  const recommendations = useRecipeStore(state => state.recommendations);
-  const generateRecommendations = useRecipeStore(state => state.generateRecommendations);
-
+function App() {
   return (
-    <div>
-      <h2>Recommended for You</h2>
-      <button onClick={generateRecommendations}>Refresh</button>
-      {recommendations.map(recipe => (
-        <div key={recipe.id}>
-          <h3>{recipe.title}</h3>
-          <p>{recipe.description}</p>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export default RecommendationsList;
+    <Routes>
+      <Route path="/" element={<><AddRecipeForm /><RecipeList /></>} />
+      <Route path="/recipe/:id" element={<RecipeDetails />} />
+    </Routes>
+  )
+}

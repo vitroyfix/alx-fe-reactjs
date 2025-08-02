@@ -1,15 +1,19 @@
-import useRecipeStore from '../store/recipeStore';
+import { useRecipeStore } from '../store/recipeStore'
 
-const SearchBar = () => {
-  const setSearchTerm = useRecipeStore(state => state.setSearchTerm);
-  const filterRecipes = useRecipeStore(state => state.filterRecipes);
+const RecommendationsList = () => {
+  const recommendations = useRecipeStore(state => state.recommendations)
 
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-    filterRecipes();
-  };
+  return (
+    <div>
+      <h2>Recommendations</h2>
+      {recommendations.map(recipe => (
+        <div key={recipe.id}>
+          <h4>{recipe.title}</h4>
+        </div>
+      ))}
+    </div>
+  )
+}
 
-  return <input type="text" placeholder="Search recipes..." onChange={handleChange} />;
-};
+export default RecommendationsList
 
-export default SearchBar;
