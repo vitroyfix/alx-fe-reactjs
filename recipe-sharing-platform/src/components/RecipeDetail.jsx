@@ -1,28 +1,41 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React from "react";
+import { useParams, Link } from "react-router-dom";
+import data from "../../public/data.json";
 
-function RecipeDetail() {
+const RecipeDetail = () => {
   const { id } = useParams();
-  const [recipe, setRecipe] = useState(null);
+  const recipe = data.find((r) => r.id === parseInt(id));
 
-  useEffect(() => {
-    fetch("/data.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const found = data.find((r) => r.id === parseInt(id));
-        setRecipe(found);
-      });
-  }, [id]);
-
-  if (!recipe) return <p>Loading...</p>;
+  if (!recipe) {
+    return (
+      <div className="text-center mt-10">
+        <p className="text-lg text-red-600">Recipe not found</p>
+        <Link to="/" className="text-blue-600 underline">Go back</Link>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold">{recipe.title}</h1>
-      <img src={recipe.image} alt={recipe.title} className="my-4 rounded" />
-      <p>{recipe.summary}</p>
+    <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6">
+      <h1 className="text-2xl font-bold mb-4">{recipe.title}</h1>
+
+      <h2 className="text-lg font-semibold mt-4">Ingredients</h2>
+      <ul className="list-disc ml-6">
+        {recipe.ingredients.map((ing, idx) => (
+          <li key={idx}>{ing}</li>
+        ))}
+      </ul>
+
+      <h2 className="text-lg font-semibold mt-4">Instructions</h2>
+      <ol className="list-decimal ml-6">
+        {recipe.instructions.map((step, idx) => (
+          <li key={idx} className="mb-1">{step}</li>
+        ))}
+      </ol>
+
+      <Link to="/" className="block mt-6 text-blue-600 underline">Back to Home</Link>
     </div>
   );
-}
+};
 
 export default RecipeDetail;

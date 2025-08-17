@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Spaghetti Bolognese",
+    "ingredients": ["Spaghetti", "Ground beef", "Tomato sauce", "Onion", "Garlic"],
+    "instructions": [
+      "Cook spaghetti according to package instructions",
+      "Sauté onion and garlic in a pan",
+      "Add ground beef and cook until browned",
+      "Stir in tomato sauce and simmer for 15 minutes",
+      "Serve sauce over spaghetti"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Pancakes",
+    "ingredients": ["Flour", "Milk", "Eggs", "Sugar", "Butter"],
+    "instructions": [
+      "Mix flour, milk, eggs, and sugar into a smooth batter",
+      "Heat butter in a pan",
+      "Pour batter and cook until bubbles form",
+      "Flip and cook the other side",
+      "Serve with syrup"
+    ]
+  }
+]

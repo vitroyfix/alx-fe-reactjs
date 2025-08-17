@@ -1,40 +1,64 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-function AddRecipeForm() {
+const AddRecipeForm = ({ onAdd }) => {
   const [title, setTitle] = useState("");
-  const [summary, setSummary] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [steps, setSteps] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("New Recipe:", { title, summary });
-    alert("Recipe submitted! (not saved to JSON, only demo)");
+    if (!title || !ingredients || !steps) return;
+
+    const newRecipe = {
+      id: Date.now(),
+      title,
+      ingredients: ingredients.split(",").map((i) => i.trim()),
+      steps: steps.split(".").map((s) => s.trim()).filter(Boolean),
+    };
+
+    onAdd(newRecipe);
+    setTitle("");
+    setIngredients("");
+    setSteps("");
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Add New Recipe</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md">
-        <input
-          type="text"
-          placeholder="Recipe Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="p-2 border rounded"
-          required
-        />
-        <textarea
-          placeholder="Recipe Summary"
-          value={summary}
-          onChange={(e) => setSummary(e.target.value)}
-          className="p-2 border rounded"
-          required
-        />
-        <button type="submit" className="bg-blue-600 text-white p-2 rounded">
-          Submit
-        </button>
-      </form>
-    </div>
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white shadow-md rounded-lg p-6 space-y-4 max-w-lg mx-auto"
+    >
+      <h2 className="text-xl font-bold text-gray-800">Add New Recipe</h2>
+
+      <input
+        type="text"
+        placeholder="Recipe Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className="w-full border rounded px-3 py-2"
+      />
+
+      <textarea
+        placeholder="Ingredients (comma separated)"
+        value={ingredients}
+        onChange={(e) => setIngredients(e.target.value)}
+        className="w-full border rounded px-3 py-2"
+      />
+
+      <textarea
+        placeholder="Steps (separated by periods)"
+        value={steps}
+        onChange={(e) => setSteps(e.target.value)}
+        className="w-full border rounded px-3 py-2"
+      />
+
+      <button
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Add Recipe
+      </button>
+    </form>
   );
-}
+};
 
 export default AddRecipeForm;
